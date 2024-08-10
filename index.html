@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <title>Sticky Containers with Synchronized Image Background</title>
+    <style>
+        .font-style-1 {
+            font-family: "Anton", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        .font-style-2 {
+            font-family: 'Pacifico', cursive;
+            font-size: 10vh;
+            font-weight: 200;
+        }
+
+        .font-style-3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 10vh;
+            font-weight: 700;
+        }
+
+        .font-style-4 {
+            font-family: 'Lobster', cursive;
+            font-size: 10vh;
+            font-weight: 100;
+        }
+
+        .font-style-5 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10vh;
+            font-weight: 700;
+        }
+
+        .font-style-6 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 10vh;
+            font-weight: 200;
+        }
+
+        .font-style-7 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 10vh;
+            font-weight: 400;
+        }
+
+        .font-style-8 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 10vh;
+            font-weight: 400;
+        }
+
+    </style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            height: 200vh;
+        }
+
+        #bgCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200vh;
+            z-index: -10;
+        }
+
+        #maskCanvas {
+            position: absolute; 
+            z-index: -8; 
+        }
+
+        .container {
+            height: 100vh;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .container-1 {
+            z-index: -9;
+            height: 100vh;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .container-1 h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .container-1 p {
+            font-size: 1.2rem;
+            max-width: 80%;
+        }
+
+        .container-2  {
+            height: 100vh;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            overflow: hidden;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .aflex{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .titlename {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            overflow: hidden;
+            height: 100%;
+            position: sticky; 
+            top: 0;
+            left: 0;/* Make sure it's positioned */
+            z-index: 10;
+            width: 50%; /* Bring it in front of other elements */
+        }
+
+        .titlename p {
+            color: white;
+            margin: 0;
+            z-index: 10; /* Ensure text is in front */
+        }
+
+        .sidetext {
+            font-size: 1.5vh;
+            font-weight: 200;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .text-one {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .text-two {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            font-size: 5rem;
+            font-weight: 800;
+            font-family: 'Times New Roman', Times, serif;
+            z-index: -7;
+        }
+
+        @media (max-width: 765px) {
+            .container-1 h1 {
+                font-size: 2rem;
+            }
+
+            .container-1 p {
+                font-size: 1rem;
+            }
+
+            .title {
+                font-size: 3rem;
+            }
+        }
+        @media (max-width: 500px) {
+            .title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <style>
+        .left-container {
+            width: 20vh;
+            height:200vh;
+        }
+        .scroll-down {
+            width: 20vh;
+            font-size: 3.8vh;
+            position: relative;
+            margin: 0;
+            font-weight: bold;
+            color: #fff;
+
+        }
+        .middle_frame{
+            position: sticky;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: grid;
+            grid-template-rows: auto auto auto auto auto auto auto;
+            grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+            z-index: -9;
+            background-color: transparent;
+        }
+        .twenty{
+            grid-row-start: 1;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-end: 8;
+            width: 20vh;
+            height: 100vh;
+            
+        }
+        .eighty{
+            height: 100vh;
+            grid-row-start: 1;
+            grid-column-start: 2;
+            grid-column-end: 11;
+            grid-row-end: 8;
+        }
+        .scrolls{
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto auto auto;
+            grid-template-rows: auto auto auto auto auto auto auto;
+            gap: 0;
+            height: 100vh;
+        }
+        .scr{
+            font-size: 10vh;
+        }
+        .row {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+        }
+        .col {
+            height: 100%;
+            width: 100%;
+            writing-mode:vertical-lr;
+            text-orientation: mixed;
+            overflow: hidden;
+        }
+        .random{
+            margin: 0;
+            letter-spacing: 9vh;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .scroll-down, .scroll-content-left, .scroll-content-right, .scroll-content-top, .scroll-content-bottom {
+            will-change: transform;
+        }
+    </style>
+    <style>
+        .one{
+            grid-column-start: 1;
+            grid-column-end: 6;
+            grid-row-start: 1;
+            grid-row-end: 2;
+        }
+        .two{
+            grid-column-start: 1;
+            grid-column-end: 4;
+            grid-row-start: 2;
+            grid-row-end: 3;            
+        }
+        .three{
+            grid-column-start: 4;
+            grid-column-end: 6;
+            grid-row-start: 2;
+            grid-row-end: 3;
+        }
+        .four{
+            grid-column-start: 2;
+            grid-column-end: 6;
+            grid-row-start: 3;
+            grid-row-end: 4;
+        }
+        .five{
+            grid-column-start: 2;
+            grid-column-end: 6;
+            grid-row-start: 4;
+            grid-row-end: 5;
+        }
+        .six{
+            grid-column-start: 3;
+            grid-column-end: 6;
+            grid-row-start: 5;
+            grid-row-end: 6;
+        }
+        .seven{
+            grid-column-start: 4;
+            grid-column-end: 9;
+            grid-row-start: 6;
+            grid-row-end: 7;
+        }
+        .eight{
+            grid-column-start: 4;
+            grid-column-end: 7;
+            grid-row-start: 7;
+            grid-row-end: 8;
+        }
+        .nine{
+            grid-column-start: 7;
+            grid-column-end: 9;
+            grid-row-start: 7;
+            grid-row-end: 8;
+        }
+        .ten{
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-start: 3;
+            grid-row-end: 8;
+        }
+        .eleven{
+            grid-column-start: 2;
+            grid-column-end: 3;
+            grid-row-start: 5;
+            grid-row-end: 8;
+        }
+        .twelve{
+            grid-column-start: 3;
+            grid-column-end: 4;
+            grid-row-start: 6;
+            grid-row-end: 8;
+        }
+        .thirteen{
+            grid-column-start: 6;
+            grid-column-end: 7;
+            grid-row-start: 1;
+            grid-row-end: 6;
+        }
+        .forteen{
+            grid-column-start: 7;
+            grid-column-end: 8;
+            grid-row-start: 1;
+            grid-row-end: 4;
+        }
+        .fifteen{
+            grid-column-start: 7;
+            grid-column-end: 8;
+            grid-row-start: 4;
+            grid-row-end: 6;
+        }
+        .sixteen{
+            grid-column-start: 8;
+            grid-column-end: 9;
+            grid-row-start: 1;
+            grid-row-end: 3;
+        }
+        .seventeen{
+            grid-column-start: 8;
+            grid-column-end: 9;
+            grid-row-start: 3;
+            grid-row-end: 6;
+        }
+    </style>
+</head>
+<body>
+    <div style="display:none;">
+        <img id="scream" width="220" height="277" src="assets/images/PF_background.png">
+    </div>
+    <div style="display:none;">
+        <img id="grim" width="220" height="277" src="assets/images/PF_background.png">
+    </div>
+    <canvas id="bgCanvas"></canvas>
+    <canvas id="maskCanvas"></canvas>
+
+    <div class="container-1">
+        <div class="middle_frame">
+            <div class="twenty">
+                <div class="left-container">
+                    <div class="scroll-down">
+                        <p>Avoid overloading with animations, using too many fonts, neglecting mobile optimization, including autoplay media, intrusive pop-ups, broken links, ignoring accessibility, cluttered design, excessive text, slow load times, or inconsistent branding.
+    
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="eighty">
+                <div class="scrolls">
+                    <div class="scr row one"><p class="random scroll-content-left"></p></div>
+                    <div class="scr row two"><p class="random scroll-content-left"></p></div>
+                    <div class="scr row three"><p class="random scroll-content-right"></p></div>
+                    <div class="scr row four"><p class="random scroll-content-right"></p></div>
+                    <div class="scr row five"><p class="random scroll-content-left"></p></div>
+                    <div class="scr row six"><p class="random scroll-content-right"></p></div>
+                    <div class="scr row seven"><p class="random scroll-content-left"></p></div>
+                    <div class="scr row eight"><p class="random scroll-content-right"></p></div>
+                    <div class="scr row nine"><p class="random scroll-content-left"></p></div>
+                    <div class="scr col ten"><p class="random scroll-content-bottom"></p></div>
+                    <div class="scr col eleven"><p class="random scroll-content-top"></p></div>
+                    <div class="scr col twelve"><p class="random scroll-content-bottom"></p></div>
+                    <div class="scr col thirteen"><p class="random scroll-content-top"></p></div>
+                    <div class="scr col forteen"><p class="random scroll-content-top"></p></div>
+                    <div class="scr col fifteen"><p class="random scroll-content-bottom"></p></div>
+                    <div class="scr col sixteen"><p class="random scroll-content-top"></p></div>
+                    <div class="scr col seventeen"><p class="random scroll-content-bottom"></p></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container-2">
+        <div class="aflex">
+            <div class="titlename">
+                <p class="sidetext text-one">PORTFOLIO</p>
+                <div class="title">
+                    <p class="name1">HARDIK</p>
+                    <p class="name2">KOLGE</p>
+                </div>
+                <p class="sidetext text-two">Don't overload the website</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        let bgCanvas = document.getElementById("bgCanvas");
+        let bgCtx = bgCanvas.getContext("2d");
+        let bgImage = document.getElementById("scream");
+    
+        let maskCanvas = document.getElementById("maskCanvas");
+        let maskCtx = maskCanvas.getContext("2d");
+        let maskImage = document.getElementById("grim");
+    
+        let titleDiv = document.querySelector('.titlename');
+    
+        let scrollOffset = 0;
+        const scrollSpeed = -0.5; // Speed
+    
+        function resizeCanvas() {
+            bgCanvas.width = window.innerWidth;
+            bgCanvas.height = 200 * window.innerHeight / 100; // 200vh in pixels
+            drawBothImages(); // Draw images after resizing
+        }
+    
+        function resizeMaskCanvas() {
+            const rect = titleDiv.getBoundingClientRect();
+            maskCanvas.width = rect.width;
+            maskCanvas.height = rect.height;
+            maskCanvas.style.top = `${rect.top + window.scrollY}px`;
+            maskCanvas.style.left = `${rect.left}px`;
+            drawBothImages(); // Draw images after resizing
+        }
+    
+        function drawBothImages() {
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = 200 * window.innerHeight / 100;
+            const bgImageRatio = bgImage.naturalWidth / bgImage.naturalHeight;
+            const imageWidthScaled = viewportHeight * bgImageRatio;
+            const limitReached = imageWidthScaled > viewportWidth;
+
+            const rect = titleDiv.getBoundingClientRect();
+            const bgCanvasAspect = bgCanvas.width / bgCanvas.height;
+            const bgImageAspect = bgImage.naturalWidth / bgImage.naturalHeight;
+
+            let bgDrawWidth, bgDrawHeight;
+
+            if (bgCanvasAspect > bgImageAspect) {
+                bgDrawWidth = bgCanvas.width;
+                bgDrawHeight = bgDrawWidth / bgImageAspect;
+            } else {
+                bgDrawHeight = bgCanvas.height;
+                bgDrawWidth = bgDrawHeight * bgImageAspect;
+            }
+
+            const bgOffsetX = (bgCanvas.width - bgDrawWidth) / 2;
+            const bgOffsetY = scrollOffset;
+
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            bgCtx.drawImage(bgImage, 0, 0, bgImage.naturalWidth, bgImage.naturalHeight, bgOffsetX, bgOffsetY, bgDrawWidth, bgDrawHeight);
+
+            // Handle mask image drawing
+            const maskCanvasAspect = maskCanvas.width / maskCanvas.height;
+            let maskDrawWidth, maskDrawHeight;
+
+            if (maskCanvasAspect > bgImageAspect) {
+                maskDrawWidth = maskCanvas.width;
+                maskDrawHeight = maskDrawWidth / bgImageAspect;
+            } else {
+                maskDrawHeight = maskCanvas.height;
+                maskDrawWidth = maskDrawHeight * bgImageAspect;
+            }
+
+            const maskOffsetX = -rect.left;
+            const maskOffsetY = scrollOffset - rect.top;
+
+            maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+
+            if (limitReached) {
+                let shift1 = imageWidthScaled - viewportWidth;
+                let shift2 = 222.5 + (-rect.left);
+                let shiftleft = shift1 + shift2;
+                maskCtx.drawImage(maskImage, shiftleft, 0, maskImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
+            } else {
+                maskCtx.drawImage(maskImage, 0, 0, maskImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
+            }
+        }
+    
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            resizeMaskCanvas();
+        });
+    
+        window.addEventListener('scroll', onScroll,{ passive: true });
+    
+        bgImage.onload = () => {
+            resizeCanvas();
+            setInterval(resizeCanvas, 1);
+        };
+    
+        maskImage.onload = () => {
+            resizeMaskCanvas();
+            setInterval(resizeMaskCanvas, 1);
+        };
+        // Initial calls to setup canvases
+        resizeCanvas();
+        resizeMaskCanvas();
+
+
+
+
+        
+        
+
+        const fontStyles = ['font-style-1', 'font-style-2', 'font-style-3', 'font-style-4','font-style-5', 'font-style-6', 'font-style-7', 'font-style-8'];
+
+        // Function to generate a random letter
+        function getRandomLetter() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+            // const letters = 'PORTFOLIOHARDIKKOLGE8HY8RID';
+            return letters.charAt(Math.floor(Math.random() * letters.length));
+        }
+
+        // Function to get a random font style from the array
+        function getRandomFontStyle() {
+            return fontStyles[Math.floor(Math.random() * fontStyles.length)];
+        }
+
+        // Function to generate random letters with random font styles
+        function generateRandomLetters(container, count) {
+            for (let i = 0; i < count; i++) {
+                const letter = document.createElement('span');
+                letter.textContent = getRandomLetter();
+                letter.className = getRandomFontStyle();
+                container.appendChild(letter);
+            }
+        }
+
+        // Select all containers with the class "scr"
+        const containers = document.querySelectorAll('.random');
+
+        // Loop through each container and generate random letters
+        window.addEventListener("load", () => {
+    containers.forEach(container => {
+        generateRandomLetters(container, 35);
+    });
+});
+        
+
+        const scrollSpeed1 = 0.5;
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        const debouncedResize = debounce(() => {
+            resizeCanvas();
+            resizeMaskCanvas();
+        }, 100);
+
+        window.addEventListener('resize', debouncedResize);
+
+        let ticking = false;
+        let lastKnownScrollPosition = 0;
+
+        function onScroll(scrollPos) {
+            scrollOffset = scrollPos * scrollSpeed;
+            drawBothImages();
+            resizeMaskCanvas();
+
+            document.querySelector('.scroll-down').style.transform = `translateY(${-scrollPos * 0.1234}px)`;
+
+            document.querySelectorAll('.scroll-content-left').forEach((container) => {
+                container.style.transform = `translateX(${scrollPos * scrollSpeed1}px)`;
+            });
+
+            document.querySelectorAll('.scroll-content-right').forEach((container) => {
+                container.style.transform = `translateX(${-scrollPos * scrollSpeed1}px)`;
+            });
+
+            document.querySelectorAll('.scroll-content-bottom').forEach((container) => {
+                container.style.transform = `translateY(${-scrollPos * scrollSpeed1}px)`;
+            });
+
+            document.querySelectorAll('.scroll-content-top').forEach((container) => {
+                container.style.transform = `translateY(${scrollPos * scrollSpeed1}px)`;
+            });
+        }
+
+        window.addEventListener('scroll', function(e) {
+            lastKnownScrollPosition = window.scrollY;
+
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    onScroll(lastKnownScrollPosition);
+                    ticking = false;
+                });
+
+                ticking = true;
+            }
+        },{passive:true});
+
+        function preloadImages() {
+            const imageUrls = ['assets/images/PF_background.png'];
+            imageUrls.forEach(url => {
+                const img = new Image();
+                img.src = url;
+            });
+        }
+
+        window.addEventListener('load', preloadImages);
+    </script>
+    
+</body>
+</html>
