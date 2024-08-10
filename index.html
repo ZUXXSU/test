@@ -455,6 +455,14 @@
         let scrollOffset = 0;
         const scrollSpeed = -0.5; // Speed
     
+
+        const points = [
+            { height: 480, value: 320 },
+            { height: 560, value: 290 },
+            { height: 679, value: 221 },
+            { height: 934, value: 10 },
+            
+        ];
         function resizeCanvas() {
             bgCanvas.width = window.innerWidth;
             bgCanvas.height = 200 * window.innerHeight / 100; // 200vh in pixels
@@ -477,14 +485,15 @@
             const viewportHeight = 200 * window.innerHeight /100;
             const imageWidthScaled = viewportHeight * bgImageRatio;
             const limitReached = imageWidthScaled > viewportWidth;
-            console.log(limitReached);
             if (limitReached) {
                 const bgCanvasAspect = bgCanvas.width / bgCanvas.height;
                 const bgImageAspect = bgImage.naturalWidth / bgImage.naturalHeight;
                 const rect = titleDiv.getBoundingClientRect();
                 let bgDrawWidth, bgDrawHeight;
+                const windowHeight = window.innerHeight;
+                const calculatedValue = calculateHeightValue(windowHeight, points);
                 let shift1 = imageWidthScaled-viewportWidth;
-                let shift2 = 222.5 +(-rect.left);
+                let shift2 = calculatedValue +(-rect.left);
                 let shiftleft = shift1 + shift2;
         
                 if (bgCanvasAspect > bgImageAspect) {
@@ -518,7 +527,9 @@
                 
                 maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
                 maskCtx.drawImage(maskImage,shiftleft, 0, bgImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
-
+                console.log(`scrollOffset  ${scrollOffset}`);
+                console.log(`rect.top  ${rect.top}`);
+                console.log(`maskOffsetY  ${maskOffsetY}`);
             } 
             else{
             const bgCanvasAspect = bgCanvas.width / bgCanvas.height;
@@ -559,7 +570,7 @@
             maskCtx.drawImage(maskImage,0, 0, maskImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
             }
         }
-    
+
         window.addEventListener('resize', () => {
             resizeCanvas();
             resizeMaskCanvas();
@@ -581,6 +592,37 @@
         resizeMaskCanvas();
 
 
+        
+        function calculateHeightValue(windowHeight, points) {
+            // Sort points by height in ascending order
+            points.sort((a, b) => a.height - b.height);
+
+            // Find the two points that the window height falls between
+            let lowerPoint = points[0];
+            let upperPoint = points[points.length - 1];
+
+            for (let i = 0; i < points.length - 1; i++) {
+                if (windowHeight >= points[i].height && windowHeight <= points[i + 1].height) {
+                    lowerPoint = points[i];
+                    upperPoint = points[i + 1];
+                    break;
+                }
+            }
+
+            // If window height is outside the range, clamp it to the nearest point
+            if (windowHeight < lowerPoint.height) return lowerPoint.value;
+            if (windowHeight > upperPoint.height) return upperPoint.value;
+
+            // Calculate the slope and y-intercept for the line segment
+            const slope = (upperPoint.value - lowerPoint.value) / (upperPoint.height - lowerPoint.height);
+            const yIntercept = lowerPoint.value - slope * lowerPoint.height;
+
+            // Calculate the value for the given window height
+            let value = slope * windowHeight + yIntercept;
+
+            // Round to the nearest integer
+            return Math.round(value);
+        }
 
 
         
