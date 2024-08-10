@@ -232,7 +232,7 @@
             grid-column-start: 1;
             grid-column-end: 2;
             grid-row-end: 8;
-            width: 20vh;
+            width: 20%;
             height: 100%;
             
         }
@@ -471,18 +471,61 @@
         }
     
         function drawBothImages() {
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = 200 * window.innerHeight / 100;
+            
             const bgImageRatio = bgImage.naturalWidth / bgImage.naturalHeight;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = 200 * window.innerHeight /100;
             const imageWidthScaled = viewportHeight * bgImageRatio;
             const limitReached = imageWidthScaled > viewportWidth;
+            console.log(limitReached);
+            if (limitReached) {
+                const bgCanvasAspect = bgCanvas.width / bgCanvas.height;
+                const bgImageAspect = bgImage.naturalWidth / bgImage.naturalHeight;
+                const rect = titleDiv.getBoundingClientRect();
+                let bgDrawWidth, bgDrawHeight;
+                let shift1 = imageWidthScaled-viewportWidth;
+                let shift2 = 222.5 +(-rect.left);
+                let shiftleft = shift1 + shift2;
+        
+                if (bgCanvasAspect > bgImageAspect) {
+                    bgDrawWidth = bgCanvas.width;
+                    bgDrawHeight = bgDrawWidth / bgImageAspect;
+                } else {
+                    bgDrawHeight = bgCanvas.height;
+                    bgDrawWidth = bgDrawHeight * bgImageAspect;
+                }
+        
+                const bgOffsetX = (bgCanvas.width - bgDrawWidth) / 2;
+                const bgOffsetY = scrollOffset;
+        
+                bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+                bgCtx.drawImage(bgImage, 0, 0, bgImage.naturalWidth, bgImage.naturalHeight, bgOffsetX, bgOffsetY, bgDrawWidth, bgDrawHeight);
+        
+                // Handle mask image drawing
+                const maskCanvasAspect = maskCanvas.width / maskCanvas.height;
+                const maskImageAspect = bgImage.naturalWidth / bgImage.naturalHeight;
+                let maskDrawWidth, maskDrawHeight;
+        
+                if (maskCanvasAspect > maskImageAspect) {
+                    maskDrawWidth = maskCanvas.width;
+                    maskDrawHeight = maskDrawWidth / maskImageAspect;
+                } else {
+                    maskDrawHeight = maskCanvas.height;
+                    maskDrawWidth = maskDrawHeight * maskImageAspect;
+                }
+                const maskOffsetX = -rect.left;
+                const maskOffsetY = scrollOffset - rect.top;
+                
+                maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+                maskCtx.drawImage(maskImage,shiftleft, 0, bgImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
 
-            const rect = titleDiv.getBoundingClientRect();
+            } 
+            else{
             const bgCanvasAspect = bgCanvas.width / bgCanvas.height;
             const bgImageAspect = bgImage.naturalWidth / bgImage.naturalHeight;
-
+            const rect = titleDiv.getBoundingClientRect();
             let bgDrawWidth, bgDrawHeight;
-
+    
             if (bgCanvasAspect > bgImageAspect) {
                 bgDrawWidth = bgCanvas.width;
                 bgDrawHeight = bgDrawWidth / bgImageAspect;
@@ -490,37 +533,30 @@
                 bgDrawHeight = bgCanvas.height;
                 bgDrawWidth = bgDrawHeight * bgImageAspect;
             }
-
+    
             const bgOffsetX = (bgCanvas.width - bgDrawWidth) / 2;
             const bgOffsetY = scrollOffset;
-
+    
             bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
             bgCtx.drawImage(bgImage, 0, 0, bgImage.naturalWidth, bgImage.naturalHeight, bgOffsetX, bgOffsetY, bgDrawWidth, bgDrawHeight);
-
+    
             // Handle mask image drawing
             const maskCanvasAspect = maskCanvas.width / maskCanvas.height;
+            const maskImageAspect = bgImage.naturalWidth / bgImage.naturalHeight;
             let maskDrawWidth, maskDrawHeight;
-
-            if (maskCanvasAspect > bgImageAspect) {
+    
+            if (maskCanvasAspect > maskImageAspect) {
                 maskDrawWidth = maskCanvas.width;
-                maskDrawHeight = maskDrawWidth / bgImageAspect;
+                maskDrawHeight = maskDrawWidth / maskImageAspect;
             } else {
                 maskDrawHeight = maskCanvas.height;
-                maskDrawWidth = maskDrawHeight * bgImageAspect;
+                maskDrawWidth = maskDrawHeight * maskImageAspect;
             }
-
             const maskOffsetX = -rect.left;
             const maskOffsetY = scrollOffset - rect.top;
-
+            
             maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
-
-            if (limitReached) {
-                let shift1 = imageWidthScaled - viewportWidth;
-                let shift2 = 222.5 + (-rect.left);
-                let shiftleft = shift1 + shift2;
-                maskCtx.drawImage(maskImage, shiftleft, 0, maskImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
-            } else {
-                maskCtx.drawImage(maskImage, 0, 0, maskImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
+            maskCtx.drawImage(maskImage,0, 0, maskImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
             }
         }
     
