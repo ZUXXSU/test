@@ -194,17 +194,33 @@
             font-size: 3rem;
         }
         .sidetext {
-            font-size: 0.5rem;
+            font-size: 0.7rem;
         }
         .title {
             font-size: 2.5rem;
         }
         .scroll-down p{
-            font-size: 1rem;
+            font-size: 2.5rem;
         }
         .random {
             font-size: 2rem;
             letter-spacing: 1.5rem;
+        }
+        .twenty{
+            grid-row-start: 1;
+            grid-column-start: 1;
+            grid-column-end: 2;
+            grid-row-end: 8;
+            width: 10%;
+            height: 100%;
+            
+        }
+        .eighty{
+            height: 100%;
+            grid-row-start: 1;
+            grid-column-start: 2;
+            grid-column-end: 11;
+            grid-row-end: 8;
         }
     }
     @media (min-width: 430px) {
@@ -213,13 +229,13 @@
             font-size: 3rem;
         }
         .sidetext {
-            font-size: 0.5rem;
+            font-size: 0.8rem;
         }
         .title {
-            font-size: 2.5rem;
+            font-size: 3rem;
         }
         .scroll-down p{
-            font-size: 2rem;
+            font-size: 2.5rem;
         }
         .random {
             font-size: 2rem;
@@ -238,7 +254,7 @@
             font-size: 4rem;
         }
         .scroll-down p{
-            font-size: 1.3rem;
+            font-size: 2.5rem;
         }
         .random {
             font-size: 2rem;
@@ -258,7 +274,7 @@
             font-size: 5rem;
         }
         .scroll-down p{
-            font-size: 1.3rem;
+            font-size: 3rem;
         }
         .random {
             font-size: 2.5rem;
@@ -278,7 +294,7 @@
             font-size: 6rem;
         }
         .scroll-down p{
-            font-size: 1.2rem;
+            font-size: 3rem;
         }
         .random {
             font-size: 3rem;
@@ -298,7 +314,7 @@
             font-size: 7rem;
         }
         .scroll-down p{
-            font-size: 1.3rem;
+            font-size: 3rem;
         }
         .random {
             font-size: 3.5rem;
@@ -308,7 +324,7 @@
     @media (min-width: 1900px) {
         .font-style-1, .font-style-2, .font-style-3, .font-style-4,
         .font-style-5, .font-style-6, .font-style-7, .font-style-8 {
-            font-size: 5.5rem;
+            font-size: 6rem;
         }
         .sidetext {
             font-size: 2rem;
@@ -317,7 +333,7 @@
             font-size: 10rem;
         }
         .scroll-down p{
-            font-size: 2.5rem;
+            font-size: 5rem;
         }
         .random {
             font-size: 4rem;
@@ -327,7 +343,7 @@
     @media (min-width: 2550px) {
         .font-style-1, .font-style-2, .font-style-3, .font-style-4,
         .font-style-5, .font-style-6, .font-style-7, .font-style-8 {
-            font-size: 8rem;
+            font-size: 10rem;
         }
         .sidetext {
             font-size: 3.2rem;
@@ -336,7 +352,7 @@
             font-size: 16rem;
         }
         .scroll-down p{
-            font-size: 5rem;
+            font-size: 8rem;
         }
         .random {
             font-size: 8rem;
@@ -346,7 +362,7 @@
     @media (min-width: 3800px) {
         .font-style-1, .font-style-2, .font-style-3, .font-style-4,
         .font-style-5, .font-style-6, .font-style-7, .font-style-8 {
-            font-size: 8rem;
+            font-size: 15rem;
         }
         .sidetext {
             font-size: 5rem;
@@ -355,7 +371,7 @@
             font-size: 20rem;
         }
         .scroll-down p{
-            font-size: 8rem;
+            font-size: 10rem;
         }
         .random {
             font-size: 10rem;
@@ -553,7 +569,6 @@
     </div>
     <canvas id="bgCanvas"></canvas>
     <canvas id="maskCanvas"></canvas>
-
     <div class="container-1">
         <div class="middle_frame">
             <div class="twenty">
@@ -562,7 +577,7 @@
                         <p>Avoid overloading with animations, using too many fonts, neglecting mobile optimization, including autoplay media, intrusive pop-ups, broken links, ignoring accessibility, cluttered design, excessive text, slow load times, or inconsistent branding.
                         
                         </p>
-                        <p class="message-on-top-right">Hii,Developer_Here Leaving_A_Message</p>
+                        <p class="message-on-top-right">Hii, Developer_Here Leaving_A_Message</p>
                     </div>
                 </div>
             </div>
@@ -589,7 +604,6 @@
             </div>
         </div>
     </div>
-    
     <div class="container-2">
         <div class="aflex">
             <div class="titlename">
@@ -602,55 +616,49 @@
             </div>
         </div>
     </div>
-
     <script>
-        
         let bgCanvas = document.getElementById("bgCanvas");
         let bgCtx = bgCanvas.getContext("2d");
         let bgImage = document.getElementById("scream");
-    
         let maskCanvas = document.getElementById("maskCanvas");
         let maskCtx = maskCanvas.getContext("2d");
         let maskImage = document.getElementById("grim");
-    
         let titleDiv = document.querySelector('.titlename');
-    
         let scrollOffset = 0;
-        const scrollSpeed = -0.5; // Speed
-    
-
-        const array1 = [
-            { height: 954, width: 1266, value: 315 },
-            { height: 954, width: 1146, value: 270 },
-            { height: 954, width: 1094, value: 250 },
-            { height: 954, width: 954, value: 150 },
+        const scrollSpeed = -0.5;
+        const landscapePoints = [
+            { ratio: 0.6757575757575758, value: 0 },
+            { ratio: 0.65, value: 45 },
+            { ratio: 0.625, value: 90 },
+            { ratio: 0.6, value: 125 },
+            { ratio: 0.575, value: 170 },
+            { ratio: 0.55, value: 210 },
+            { ratio: 0.525, value: 250 },
+            { ratio: 0.5, value: 290 }
         ];
-
-        // Points for portrait orientation (height > width)
-        const array2 = [
-            { height: 1366, width: 1024, value: -50 },
-            { height: 1368, width: 912, value: -155 },
-            { height: 1280, width: 853, value: -85 },
-            { height: 1024, width: 768, value: 40 },
-            { height: 1180, width: 820, value: -13 },
-            { height: 1080, width: 820, value: -15 },
-            { height: 932, width: 430, value: 15 },
-            { height: 926, width: 428, value: 20 },
-            { height: 896, width: 441, value: 45 },
-            { height: 852, width: 393, value: 70 },
-            { height: 720, width: 540, value: 140 },
-            { height: 844, width: 357, value: 75 },
-            { height: 812, width: 375, value: 120 },
-            { height: 736, width: 414, value: 175 },
-            { height: 740, width: 360, value: 190 },
-            { height: 667, width: 375, value: 220 },
+        const portraitPoints = [
+            { ratio: 0.499999999999999, value: 290 },
+            { ratio: 0.475, value: 335 },
+            { ratio: 0.45, value: 375 },
+            { ratio: 0.425, value: 415 },
+            { ratio: 0.4, value: 455 },
+            { ratio: 0.375, value: 500 },
+            { ratio: 0.36, value: 523 },
+            { ratio: 0.35, value: 550 },
+            { ratio: 0.34, value: 570 },
+            { ratio: 0.33, value: 580 },
+            // { ratio: 0.325, value: 580 },
+            { ratio: 0.3, value: 620 },
+            { ratio: 0.275, value: 665 },
+            { ratio: 0.25, value: 705 },
+            { ratio: 0.225, value: 745 },
+            { ratio: 0.2, value: 788 },
         ];
         function resizeCanvas() {
             bgCanvas.width = window.innerWidth;
             bgCanvas.height = 200 * window.innerHeight / 100;
             drawBothImages();
         }
-    
         function resizeMaskCanvas() {
             const rect = titleDiv.getBoundingClientRect();
             maskCanvas.width = rect.width;
@@ -659,7 +667,6 @@
             maskCanvas.style.left = `${rect.left}px`;
             drawBothImages(); // Draw images after resizing
         }
-    
         function drawBothImages() {
             
             const bgImageRatio = bgImage.naturalWidth / bgImage.naturalHeight;
@@ -674,10 +681,7 @@
                 let bgDrawWidth, bgDrawHeight;
                 const windowHeight = window.innerHeight;
                 const windowWidth = window.innerWidth;
-                const calculatedValue = calculateHeightValue(windowHeight, windowWidth);
-                let shift1 = imageWidthScaled-viewportWidth;
-                let shift2 = calculatedValue +(-rect.left);
-                let shiftleft = shift1 + shift2;
+                const calculatedValue = calculateAspectRatioValue(windowHeight, windowWidth, bgCanvasAspect);
         
                 if (bgCanvasAspect > bgImageAspect) {
                     bgDrawWidth = bgCanvas.width;
@@ -709,7 +713,7 @@
                 const maskOffsetY = scrollOffset - rect.top;
                 
                 maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
-                maskCtx.drawImage(maskImage,shiftleft, 0, bgImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
+                maskCtx.drawImage(maskImage,calculatedValue, 0, bgImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
             } 
             else{
             const bgCanvasAspect = bgCanvas.width / bgCanvas.height;
@@ -724,7 +728,6 @@
                 bgDrawHeight = bgCanvas.height;
                 bgDrawWidth = bgDrawHeight * bgImageAspect;
             }
-    
             const bgOffsetX = (bgCanvas.width - bgDrawWidth) / 2;
             const bgOffsetY = scrollOffset;
     
@@ -735,7 +738,6 @@
             const maskCanvasAspect = maskCanvas.width / maskCanvas.height;
             const maskImageAspect = bgImage.naturalWidth / bgImage.naturalHeight;
             let maskDrawWidth, maskDrawHeight;
-    
             if (maskCanvasAspect > maskImageAspect) {
                 maskDrawWidth = maskCanvas.width;
                 maskDrawHeight = maskDrawWidth / maskImageAspect;
@@ -745,24 +747,19 @@
             }
             const maskOffsetX = -rect.left;
             const maskOffsetY = scrollOffset - rect.top;
-            
             maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
             maskCtx.drawImage(maskImage,0, 0, maskImage.naturalWidth, bgImage.naturalHeight, maskOffsetX, maskOffsetY, bgDrawWidth, bgDrawHeight);
             }
         }
-
         window.addEventListener('resize', () => {
             resizeCanvas();
             resizeMaskCanvas();
         });
-    
         window.addEventListener('scroll', onScroll,{ passive: true });
-    
         bgImage.onload = () => {
             resizeCanvas();
             setInterval(resizeCanvas, 1);
         };
-    
         maskImage.onload = () => {
             resizeMaskCanvas();
             setInterval(resizeMaskCanvas, 1);
@@ -770,76 +767,46 @@
         // Initial calls to setup canvases
         resizeCanvas();
         resizeMaskCanvas();
-
-
-
-        function calculateHeightValue(windowHeight, windowWidth) {
-            // Determine which points array to use based on orientation
+        function calculateAspectRatioValue(width, height, canvasRatio) {
+            let ratio = canvasRatio;
             let points;
-            if (windowWidth > windowHeight) {
-                // Landscape mode
-                points = array1;
-            } else if (windowWidth < windowHeight) {
-                // Portrait mode
-                points = array2;
-            } else {
-                // Square display - use either array (let's use array1 in this case)
-                points = array1;
+
+            // Determine which array to use based on the aspect ratio
+            if (ratio >= 0.5 && ratio < 0.6757575757575758) {
+                points = landscapePoints;
+            } else if (ratio < 0.5) {
+                points = portraitPoints;
+            }else{
+                return 0;
             }
-
-            // Sort points by height in ascending order
-            points.sort((a, b) => a.height - b.height);
-
-            // Find the two points that the window height falls between
+            points.sort((a, b) => a.ratio - b.ratio);
             let lowerPoint = points[0];
             let upperPoint = points[points.length - 1];
 
             for (let i = 0; i < points.length - 1; i++) {
-                if (windowHeight >= points[i].height && windowHeight <= points[i + 1].height) {
+                if (ratio >= points[i].ratio && ratio <= points[i + 1].ratio) {
                     lowerPoint = points[i];
                     upperPoint = points[i + 1];
                     break;
                 }
             }
-
-            // If window height is outside the range, clamp it to the nearest point
-            if (windowHeight < lowerPoint.height) return lowerPoint.value;
-            if (windowHeight > upperPoint.height) return upperPoint.value;
-
-            // Calculate the slope and y-intercept for the line segment
-            const heightSlope = (upperPoint.value - lowerPoint.value) / (upperPoint.height - lowerPoint.height);
-            const heightIntercept = lowerPoint.value - heightSlope * lowerPoint.height;
-
-            // Calculate the base value for the given window height
-            let baseValue = heightSlope * windowHeight + heightIntercept;
-
-            // Adjust the value based on the width ratio
-            const widthRatio = windowWidth / lowerPoint.width;
-            let adjustedValue = baseValue * widthRatio;
-
-            // Round to the nearest integer
-            return Math.round(adjustedValue);
+            if (ratio <= lowerPoint.ratio) return lowerPoint.value;
+            if (ratio >= upperPoint.ratio) return upperPoint.value;
+            const progress = (ratio - lowerPoint.ratio) / (upperPoint.ratio - lowerPoint.ratio);
+            const interpolatedValue = lowerPoint.value + progress * (upperPoint.value - lowerPoint.value);
+            return Math.round(interpolatedValue);
         }
-
-
-        
-        
-
         const fontStyles = ['font-style-1', 'font-style-2', 'font-style-3', 'font-style-4','font-style-5', 'font-style-6', 'font-style-7', 'font-style-8'];
-
-        // Function to generate a random letter
         function getRandomLetter() {
             const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-            // const letters = 'PORTFOLIOHARDIKKOLGE8HY8RID';
+            // const letters = 'HARDIKKOLGE8';
             return letters.charAt(Math.floor(Math.random() * letters.length));
         }
 
-        // Function to get a random font style from the array
         function getRandomFontStyle() {
             return fontStyles[Math.floor(Math.random() * fontStyles.length)];
         }
 
-        // Function to generate random letters with random font styles
         function generateRandomLetters(container, count) {
             for (let i = 0; i < count; i++) {
                 const letter = document.createElement('span');
@@ -849,19 +816,13 @@
             }
         }
 
-        // Select all containers with the class "scr"
         const containers = document.querySelectorAll('.random');
-
-        // Loop through each container and generate random letters
         window.addEventListener("load", () => {
-    containers.forEach(container => {
-        generateRandomLetters(container, 35);
-    });
-});
-        
-
+            containers.forEach(container => {
+                generateRandomLetters(container, 35);
+            });
+        });
         const scrollSpeed1 = 0.5;
-
         function debounce(func, wait) {
             let timeout;
             return function executedFunction(...args) {
@@ -873,24 +834,20 @@
                 timeout = setTimeout(later, wait);
             };
         }
-
         const debouncedResize = debounce(() => {
             resizeCanvas();
             resizeMaskCanvas();
         }, 100);
-
         window.addEventListener('resize', debouncedResize);
-
         let ticking = false;
         let lastKnownScrollPosition = 0;
-
         function onScroll(scrollPos) {
             scrollOffset = scrollPos * scrollSpeed;
             drawBothImages();
             resizeMaskCanvas();
 
             document.querySelector('.scroll-down').style.transform = `translateY(${-scrollPos * 0.345}px)`;
-
+            
             document.querySelectorAll('.scroll-content-left').forEach((container) => {
                 container.style.transform = `translateX(${scrollPos * scrollSpeed1}px)`;
             });
@@ -907,7 +864,6 @@
                 container.style.transform = `translateY(${scrollPos * scrollSpeed1}px)`;
             });
         }
-
         window.addEventListener('scroll', function(e) {
             lastKnownScrollPosition = window.scrollY;
 
@@ -920,7 +876,6 @@
                 ticking = true;
             }
         },{passive:true});
-
         function preloadImages() {
             const imageUrls = ['assets/images/PF_background.png'];
             imageUrls.forEach(url => {
@@ -928,30 +883,21 @@
                 img.src = url;
             });
         }
-
         window.addEventListener('load', preloadImages);
-
-
         function positionMessage() {
-    const message = document.querySelector('.message-on-top-right');
-    if (!message) return; // Exit if the element doesn't exist
-
-    message.style.position = 'fixed';
-    message.style.top = '30vh';
-    message.style.right = '0';
-    message.style.width = '50vw';
-    message.style.transform = 'translateX(80vw) rotate(180deg)';
-    message.style.textAlign = 'right';
-    message.style.fontSize = 'calc(14px + 0.5vw)';
-    message.style.textAlign = 'left';
-}
-
-// Run the function initially
-positionMessage();
-
-// Re-run on window resize for responsiveness
-window.addEventListener('resize', positionMessage);
+            const message = document.querySelector('.message-on-top-right');
+            if (!message) return;
+            message.style.position = 'fixed';
+            message.style.top = '30vh';
+            message.style.right = '0';
+            message.style.width = '50vw';
+            message.style.transform = 'translateX(80vw) rotate(180deg)';
+            message.style.textAlign = 'right';
+            message.style.fontSize = 'calc(14px + 0.5vw)';
+            message.style.textAlign = 'left';
+        }
+        positionMessage();
+        window.addEventListener('resize', positionMessage);
     </script>
-    
 </body>
 </html>
